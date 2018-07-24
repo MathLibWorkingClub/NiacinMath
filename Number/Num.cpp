@@ -8,7 +8,7 @@ Num::Num(const Num&)
 {
 }
 
-uint32_t * Num::bitPatAdd(uint32_t* const opa, uint32_t* const opb, size_t len)
+uint32_t * Num::bitPatAdd(const uint32_t* opa, const uint32_t* opb, const size_t len)
 {
 	uint32_t* rst = new uint32_t[len];
 	uint32_t c = 0u; // The carry
@@ -34,7 +34,7 @@ uint32_t * Num::bitPatAdd(uint32_t* const opa, uint32_t* const opb, size_t len)
 	return rst;
 }
 
-uint32_t * Num::bitPatSub(uint32_t* const opa, uint32_t* const opb, size_t len)
+uint32_t * Num::bitPatSub(const uint32_t* opa, const uint32_t* opb, const size_t len)
 {
 	// a-b means a+(-b) in complement form
 	uint32_t* opbc = new uint32_t[len];
@@ -52,7 +52,7 @@ uint32_t * Num::bitPatSub(uint32_t* const opa, uint32_t* const opb, size_t len)
 	return Num::bitPatAdd(opa, opb, len);
 }
 
-bool Num::bitPatCompare(uint32_t * opa, uint32_t * opb, size_t len)
+bool Num::bitPatCompare(const uint32_t * opa, const uint32_t * opb, const size_t len)
 {
 	for (size_t i = len - 1; i >= 0; i++)
 	{
