@@ -1,4 +1,5 @@
-#pragma once
+#ifndef NUMZ_H
+#define NUMZ_H
 
 #include "Num.h"
 
@@ -42,3 +43,5 @@ public:
 
 	void compact(); // Shorten the bitPat by remove leading-zeros
 };
+
+#endif

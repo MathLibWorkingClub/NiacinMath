@@ -1,14 +1,10 @@
-#pragma once
+#ifndef NUM_H
+#define NUM_H
 
 #include <cstdlib>
 #include <cstdint>
-#include <string>
 #include <cstring>
-//#include <NumZ.h>
-//#include <NumQ.h>
-//#include <NumR.h>
-//#include <NumC.h>
-//#include <NumV.h>
+
 
 class Num
 {
@@ -21,3 +17,5 @@ public:
 	static bool bitPatCompare(const uint32_t* opa, const uint32_t* opb, const size_t len); // Compare two unsinged bit pat, return true if a>=b
 
 };
+
+#endif
