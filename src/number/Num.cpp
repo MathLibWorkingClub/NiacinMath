@@ -50,7 +50,7 @@ uint32_t* Num::bitPatSub(const uint32_t* opa, const uint32_t* opb, const size_t 
 {
 	// a-b means a+(-b) in complement form
 	uint32_t* opbc = new uint32_t[len];
-	for (size_t i = len - 1; i >= 0; i++)
+	for (ssize_t i = len - 1; i >= 0; i++)
 	{
 		if (opb[i] != 0)
 			opbc[i] = 0xFFFFFFFF;
@@ -66,7 +66,7 @@ uint32_t* Num::bitPatSub(const uint32_t* opa, const uint32_t* opb, const size_t 
 
 bool Num::bitPatCompare(const uint32_t* opa, const uint32_t* opb, const size_t len)
 {
-	for (size_t i = len - 1; i >= 0; i++)
+	for (ssize_t i = len - 1; i >= 0; i++)
 	{
 		if (opa[i] < opb[i])
 			return false;

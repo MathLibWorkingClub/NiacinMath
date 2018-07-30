@@ -6,7 +6,7 @@ set (NiacinMath_VERSION_Major 0)
 set (NiacinMath_VERSION_Minor 0)
 set (NiacinMath_VERSION_Patch 0)
 
-set (CMAKE_CXX_FLAGS "-std=c++17 -O3")
+set (CMAKE_CP_FLAGS "-std=c++17 -O3")
 
 include_directories(
     include

@@ -21,9 +21,11 @@ NumZ::NumZ(size_t len)
 	}
 }
 
+NumZ::NumZ(size_t len, uint32_t *bPat, bool s)
 {
 	this->bitPatLen = len;
 	this->bitPat = new uint32_t[len];
+	this->sign = s;
 	memcpy(this->bitPat, bPat, sizeof(uint32_t) * len);
 }
 
@@ -57,6 +59,9 @@ NumZ NumZ::operator-() const
 	return rst;
 }
 
+#ifdef DEBUGNUM_Z
+#define DEBUGNUM_Z_ADD
+#endif
 NumZ NumZ::operator+(const NumZ &opd) const
 {
 	NumZ rst;
@@ -70,7 +75,7 @@ NumZ NumZ::operator+(const NumZ &opd) const
 	{
 		opa[i] = 0u;
 	}
-#ifdef DEBUGNUM_Z
+#ifdef DEBUGNUM_Z_ADD
 	cout << "opa = ";
 	for (ssize_t i = len - 1; i >= 0; i--)
 	{
@@ -84,7 +89,7 @@ NumZ NumZ::operator+(const NumZ &opd) const
 	{
 		opb[i] = 0u;
 	}
-#ifdef DEBUGNUM_Z
+#ifdef DEBUGNUM_Z_ADD
 	cout << "opb = ";
 	for (ssize_t i = len - 1; i >= 0; i--)
 	{
@@ -102,6 +107,7 @@ NumZ NumZ::operator+(const NumZ &opd) const
 	}
 	else
 	{
+		// Compare the bitPat of two operands
 		if (Num::bitPatCompare(opa, opb, len))
 		{
 			rst.sign = this->sign;
@@ -109,13 +115,15 @@ NumZ NumZ::operator+(const NumZ &opd) const
 		}
 		else
 		{
+#ifdef DEBUGNUM_Z_ADD
+			cout << "opa < opb" << endl;
+#endif
 			rst.sign = opd.sign;
 			rst.bitPat = Num::bitPatSub(opb, opa, len);
 		}
 	}
 
 	rst.compact();
-
 	return rst;
 }
 
@@ -249,7 +257,7 @@ void NumZ::compact()
 
 	this->bitPatLen = this->bitPatLen - zeroCount;									 // Revise bitPatLen
 	uint32_t *newBitPat = new uint32_t[this->bitPatLen];							 // Create newBitPat array
-	memcpy(newBitPat, this->bitPat + zeroCount, sizeof(uint32_t) * this->bitPatLen); // Copy valid old bitPat part to the newBitPat
+	memcpy(newBitPat, this->bitPat, sizeof(uint32_t) * this->bitPatLen); // Copy valid old bitPat part to the newBitPat
 	delete[] this->bitPat;															 // Delete the old array
 	this->bitPat = newBitPat;														 // Let the bitPat ptr point to the new bit-pat array
 }
