@@ -7,7 +7,7 @@ add_library(number_static STATIC ${LIBNUMBER_SRC})
 set_target_properties(number_static PROPERTIES OUTPUT_NAME "number")
 
 # Set library version
-set_target_properties(number PROPERTIES VERSION 0.0.1 SOVERSION 0.0.1)
+#set_target_properties(number PROPERTIES VERSION 0.0.1 SOVERSION 0.0.1)
 
 # Set install path
 install(TARGETS number number_static

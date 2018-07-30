@@ -1,5 +1,12 @@
 #include "Num.h"
 
+#ifdef DEBUGNUM
+#define DEBUGNUM_NUM
+#include <iostream>
+#include <iomanip>
+using namespace std;
+#endif
+
 Num::Num()
 {
 }
@@ -12,16 +19,21 @@ uint32_t* Num::bitPatAdd(const uint32_t* opa, const uint32_t* opb, const size_t 
 {
 	uint32_t* rst = new uint32_t[len];
 	uint32_t c = 0u; // The carry
-	bool c_1, c_2; // The carray flags
+	bool c_1 = false; // The carray flags
+	bool c_2 = false; 
 
 	for (size_t i = 0; i < len; i++)
 	{
 		rst[i] = opa[i] + opb[i];
 		if (rst[i] < opa[i] && rst[i] < opb[i]) 
 			c_1 = true; // Carry when doing the addition
+		else
+			c_1 = false;
 
 		if (rst[i] + c < rst[i]) 
 			c_2 = true; // Will Carry when doing the addition in next line
+		else
+			c_2 = false;
 		rst[i] += c;
 
 		// Get the next 

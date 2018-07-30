@@ -15,6 +15,10 @@ public:
 	NumZ(size_t len, uint32_t* bPat, bool s);
 	NumZ(const NumZ&);
 
+	size_t getLen() const;
+	bool getSign() const;
+	const uint32_t* getBitPat() const;
+
 	NumZ operator-() const; // Negative
 	NumZ operator+(const NumZ&) const;
 	NumZ operator-(const NumZ&) const;
