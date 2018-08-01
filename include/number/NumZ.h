@@ -14,6 +14,7 @@ public:
 	explicit NumZ(size_t len);
 	NumZ(size_t len, uint32_t* bPat, bool s);
 	NumZ(const NumZ&);
+	virtual ~NumZ();
 
 	size_t getLen() const;
 	bool getSign() const;

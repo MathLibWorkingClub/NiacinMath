@@ -37,6 +37,11 @@ NumZ::NumZ(const NumZ &opd)
 	memcpy(this->bitPat, opd.bitPat, sizeof(uint32_t) * this->bitPatLen);
 }
 
+NumZ::~NumZ()
+{
+	delete [] this->bitPat;
+}
+
 size_t NumZ::getLen() const
 {
 	return this->bitPatLen;
@@ -124,6 +129,8 @@ NumZ NumZ::operator+(const NumZ &opd) const
 	}
 
 	rst.compact();
+	delete [] opa;
+	delete [] opb;
 	return rst;
 }
 
@@ -132,8 +139,10 @@ NumZ NumZ::operator-(const NumZ &opd) const
 	return (*this) + (-opd);
 }
 
-NumZ NumZ::operator*(const NumZ &)const
+NumZ NumZ::operator*(const NumZ &opd)const
 {
+	uint32_t* rstBitPat = new uint32_t[this->bitPatLen + opd.bitPatLen];
+
 	return NumZ();
 }
 
@@ -255,9 +264,9 @@ void NumZ::compact()
 		zeroCount++;
 	}; // count leading-zero groups
 
-	this->bitPatLen = this->bitPatLen - zeroCount;									 // Revise bitPatLen
-	uint32_t *newBitPat = new uint32_t[this->bitPatLen];							 // Create newBitPat array
+	this->bitPatLen = this->bitPatLen - zeroCount;						 // Revise bitPatLen
+	uint32_t *newBitPat = new uint32_t[this->bitPatLen];				 // Create newBitPat array
 	memcpy(newBitPat, this->bitPat, sizeof(uint32_t) * this->bitPatLen); // Copy valid old bitPat part to the newBitPat
-	delete[] this->bitPat;															 // Delete the old array
-	this->bitPat = newBitPat;														 // Let the bitPat ptr point to the new bit-pat array
+	delete[] this->bitPat;												 // Delete the old array
+	this->bitPat = newBitPat;											 // Let the bitPat ptr point to the new bit-pat array
 }
