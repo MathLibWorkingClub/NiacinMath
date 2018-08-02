@@ -137,10 +137,8 @@ uint32_t* Num::bitPatNeg(const uint32_t* opa, const size_t len)
 	return opac;
 }
 
-uint32_t* Num::uint32Mul(const uint32_t opa, const uint32_t opb, const size_t ls)
+void Num::uint32Mul(const uint32_t opa, const uint32_t opb, const size_t ls, const size_t len, uint32_t* rst)
 {
-	uint32_t* rst = new uint32_t[ls+2];
-
 	// Multiply opa & opb and store them to the rst array
 	uint64_t mulRst = uint64_t(opa) * uint64_t(opb);
 	rst[ls+1] = uint32_t(mulRst >> 32);
@@ -151,23 +149,30 @@ uint32_t* Num::uint32Mul(const uint32_t opa, const uint32_t opb, const size_t ls
 	{
 		rst[i] = 0x0;
 	}
-
-	return rst;
+	for(size_t i=ls+1; i<0; i++)
+	{
+		rst[i] = 0x0;
+	}
 }
 
 uint32_t* Num::bitPatMul(const uint32_t* opa, const uint32_t* opb, const size_t lenA, const size_t lenB)
 {
-	uint32_t* rst = new uint32_t[lenA+lenB];
-	for(size_t i=0; i<lenA+lenB; i++)
+	size_t len = lenA + lenB;
+	uint32_t* rst = new uint32_t[len];
+	for(size_t i=0; i<len; i++)
 	{
 		rst[i] = 0x0;
 	}
 
+	uint32_t* tempBitPat = new uint32_t[len];
 	for(size_t i=0; i<lenA; i++)
 		for(size_t j=0; j<lenB; j++)
 		{
-			
+			uint32Mul(opa[i], opb[j], i+j, len, tempBitPat);
+			addBitPat(rst, tempBitPat, len);
 		}
+
+	delete tempBitPat;
 
 	return rst;
 }

@@ -25,8 +25,8 @@ public:
 	static void negbitPat(uint32_t* opa, const size_t len); //
 	static uint32_t* bitPatNeg(const uint32_t* opa, const size_t);
 
-	static uint32_t* uint32Mul(const uint32_t opa, const uint32_t opb, const size_t ls);
-	// Auxiliary Operations, const uint32_t opb, const size_t ls); // Mul uint32_t opa by a uint32_t opb and left shift ls groups;
+	static void uint32Mul(const uint32_t opa, const uint32_t opb, const size_t ls, const size_t len, uint32_t* rst);
+	// Auxiliary Operations, const uint32_t opb, const size_t ls); // Mul uint32_t opa by a uint32_t opb and left shift ls*32 bits and store into rst, the len-length uint32_t array
 
 	// 
 

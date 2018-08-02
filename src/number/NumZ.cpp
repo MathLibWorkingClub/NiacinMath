@@ -64,11 +64,12 @@ NumZ NumZ::operator-() const
 	return rst;
 }
 
-#ifdef DEBUGNUM_Z
-#define DEBUGNUM_Z_ADD
-#endif
+
 NumZ NumZ::operator+(const NumZ &opd) const
 {
+#ifdef DEBUGNUM_Z
+//#define DEBUGNUM_Z_ADD
+#endif
 	NumZ rst;
 
 	size_t len = (this->bitPatLen > opd.bitPatLen) ? (this->bitPatLen) : (opd.bitPatLen) + 1;
@@ -141,9 +142,16 @@ NumZ NumZ::operator-(const NumZ &opd) const
 
 NumZ NumZ::operator*(const NumZ &opd)const
 {
-	uint32_t* rstBitPat = new uint32_t[this->bitPatLen + opd.bitPatLen];
+#ifdef DEBUGNUM_Z
+#define DEBUGNUM_Z_MUL
+#endif
+	uint32_t* rstBitPat = Num::bitPatMul(this->bitPat, opd.bitPat, this->bitPatLen, opd.bitPatLen);
 
-	return NumZ();
+#ifdef DEBUGNUM_Z_MUL
+	cout << "Len = " << this->bitPatLen+opd.bitPatLen << endl;
+#endif
+
+	return NumZ(this->bitPatLen+opd.bitPatLen ,rstBitPat, this->sign^opd.sign);
 }
 
 NumZ NumZ::operator/(const NumZ &) const
